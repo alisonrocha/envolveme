@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>envolveme</title>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- STYLE -->
+    <link rel="stylesheet" href="../../public/styles/global.css" />
+
+    <link rel="stylesheet" href="../public/styles/index.css" />
+  </head>
+  <body>
+    <header class="container">
+      <h1 class="logo">envolve<span>me</span></h1>
+    </header>
+    <main class="container">
+      <div class="context">
+        <section class="left">
+          <div class="ball">
+            <img
+              src="../../public/images/img-login.svg"
+              alt="imagem em 3D de uma mulher com cachorro"
+            />
+          </div>
+        </section>
+        <section class="right">
+          <h2>
+            Venha fazer parte <br />
+            dessa
+            <span
+              >comunidade do <br />
+              bem</span
+            >
+          </h2>
+          <form action="#" id="form-login">
+            <label class="sr-only" for-id="user-email"
+              >Digite seu usuário</label
+            >
+            <input
+              type="email"
+              id="user-email"
+              placeholder="Digite seu e-mail"
+              required
+            />
+
+            <label class="sr-only" for-id="user-password"
+              >Digite sua senha</label
+            >
+            <input
+              type="password"
+              id="user-password"
+              placeholder="Senha"
+              required
+            />
+
+            <a href="#" class="forgotPsw">Esqueceu a senha?</a>
+            <a href="#" class="register">Quero me cadastrar</a>
+
+            <button id="btn-authentication">Enviar</button>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <div class="modal modal-forgot-password">
+      <div class="context-modal">
+        <div class="close forgotPsw">X</div>
+        <div class="container">
+          <h2>Digite seu <span>e-mail</span></h2>
+          <form action="#" id="form-forgot">
+            <label class="sr-only" for-id="user-forgot"
+              >Digite seu e-mail</label
+            >
+            <input
+              type="email"
+              id="email-forgot"
+              placeholder="E-mail"
+              required
+            />
+            <button id="btn-forgot">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal modal-register">
+      <div class="context-modal">
+        <div class="close register">X</div>
+        <div class="container">
+          <h2>
+            Falta pouco para você entrar para <span>comunidade do bem</span>
+          </h2>
+          <form class="form-register" id="form-register" action="#">
+            <label class="sr-only" for-id="name">Digite seu nome</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Digite seu nome"
+              required
+            />
+
+            <label class="sr-only" for-id="last-name"
+              >Digite seu sobrenome</label
+            >
+            <input
+              type="text"
+              id="last-name"
+              placeholder="Digite seu sobrenome"
+              required
+            />
+
+            <label class="sr-only" for-id="email">Digite seu e-mail</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Digite seu e-mail"
+              required
+            />
+
+            <label class="sr-only" for-id="password-register"
+              >Digite uma senha</label
+            >
+            <input
+              type="password"
+              id="password-register"
+              placeholder="Digite uma senha"
+              required
+            />
+            <button id="btn-save">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal modal-recover-password">
+      <div class="context-modal">
+        <div class="close">X</div>
+        <div class="container">
+          <h2>Digite uma nova <span>senha</span></h2>
+          <form class="form-recover-password" action="#" id="form-recover">
+            <label class="sr-only" for-id="recover-password"
+              >Digite uma nova senha</label
+            >
+            <input
+              type="password"
+              id="recover-password"
+              placeholder="Digite uma senha"
+              required
+            />
+            <button id="btn-recover">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="../public/scripts/login.js"></script>
+    <script src="../public/scripts/form-register.js"></script>
+    <script src="../public/scripts/form-forgot-password.js"></script>
+  </body>
+</html>

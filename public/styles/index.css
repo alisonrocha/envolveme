@@ -1,0 +1,168 @@
+@import url(../styles/variables.css);
+
+/* HEADER */
+
+header {
+  height: 8rem;
+
+  display: flex;
+  align-items: center;
+}
+
+header h1 {
+  color: var(--secundary-color);
+
+  padding-left: 1.7rem;
+
+  font-size: 3.5rem;
+}
+
+/* MAIN */
+main .context {
+  display: flex;
+}
+
+section {
+  padding-top: 4rem;
+}
+
+.context .left,
+.context .right {
+  width: 50%;
+}
+
+/* CREATE BALLS */
+.ball {
+  width: 40rem;
+  height: 40rem;
+
+  background: var(--primary-color);
+
+  border-radius: 20rem;
+
+  position: relative;
+  left: 2rem;
+}
+
+main .ball img {
+  width: 53rem;
+
+  position: absolute;
+  left: -2rem;
+  top: -5rem;
+}
+
+.right h2 {
+  width: 40rem;
+
+  margin: 0 auto;
+  padding-bottom: 2rem;
+
+  font-weight: bold;
+  line-height: 3.7rem;
+
+  font-size: 2.8rem;
+}
+
+.right form {
+  width: 40rem;
+
+  margin: 0 auto;
+}
+
+.right input {
+  width: 100%;
+
+  margin-bottom: 1rem;
+}
+
+.right a {
+  color: var(--secundary-color);
+
+  font-size: 1.3rem
+}
+
+.right form a:nth-child(6) {
+  float: right;
+}
+
+.right button {
+  width: 40rem;
+
+  margin-top: 2.5rem;
+
+  font-size: 1.5rem;
+}
+
+/* MODAL */
+.modal {
+  width: 100%;
+  height: 100vw;
+
+  position: fixed;
+  top: 0;
+
+  background: #0000009e;
+}
+
+.context-modal {
+  width: 48rem;
+  height: auto;
+
+  margin: 10rem auto;
+
+  background: white;
+
+  position: relative;
+  align-items: center;
+
+  border-radius: 1rem;
+}
+
+.modal-forgot-password,
+.modal-register,
+.modal-recover-password {
+  visibility: hidden;
+}
+
+.modal-forgot-password.active,
+.modal-register.active,
+.modal-recover-password.active {
+  visibility: visible;
+}
+
+.modal .close {
+  font-weight: bold;
+  font-size: 1.4rem;
+
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+
+  cursor: pointer;
+}
+
+.context-modal .container {
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+.context-modal h2 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.context-modal input {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.context-modal button {
+  width: 100%;
+}
+
+.modal-success .context-modal {
+  margin: 25rem auto;
+  width: 50rem;
+  text-align: center;
+}

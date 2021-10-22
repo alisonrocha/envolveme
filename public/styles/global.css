@@ -1,0 +1,103 @@
+@import url(../styles/variables.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* 1rem = 16px (User Agent) = 100% (User Agent) */
+  font-size: 62.5%; /* 10px */
+
+  font-family: var(--font-family);
+}
+
+/*Sumir com o label para ajudar na acessibilidade*/
+.sr-only {
+  height: 1px;
+  width: 1px;
+
+  position: absolute;
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip-path: rect(0, 0, 0, 0);
+  white-space: nowrap;
+
+  border-width: 0;
+}
+
+.container {
+  width: 80%;
+  margin: 1.5rem auto;
+}
+
+input,
+button,
+.button {
+  height: 5rem;
+
+  font-family: 'Poppins';
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1rem;
+  transition: filter 0.2s;
+
+  cursor: pointer;
+}
+
+button {
+  background: var(--primary-color);
+  color: var(--thirty-color);
+  border: none;
+}
+
+button:hover,
+.button:hover,
+ul li:hover {
+  filter: brightness(1.2);
+}
+
+span {
+  color: var(--primary-color);
+}
+
+input {
+  padding: 0 1rem;
+  border: solid 1px #cfcfcf;
+}
+
+input.error {
+  border: solid 1px red;
+}
+
+span.error {
+  font-size: 1.2rem;
+}
+
+a {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1.8rem;
+}
+
+ul li {
+  cursor: pointer;
+}

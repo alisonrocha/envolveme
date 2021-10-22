@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- STYLE -->
+    <link rel="stylesheet" href="../../public/styles/global.css" />
+    <link rel="stylesheet" href="../public/styles/home.css" />
+    <link rel="stylesheet" href="../public/styles/index.css" />
+  </head>
+  <body>
+    <div class="context-home">
+      <div class="section-one">
+        <nav>
+          <div class="logo container"><h1>envolveme</h1></div>
+          <ul class="menu-home">
+            <li id="home">
+              <img src="./../public/images/home.svg" alt="" /> <span>Home</span>
+            </li>
+            <li id="registration-action">
+              <img src="./../public/images/heart.svg" alt="" />
+              <span>Cadastrar Ação</span>
+            </li>
+            <li id="profile">
+              <img src="./../public/images/user.svg" alt="" />
+              <span>Perfil</span>
+            </li>
+            <li id="logout">
+              <img src="./../public/images/logout.svg" alt="" />
+              <span>Sair</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="section-two">
+        <header>
+          <div class="data-email">
+            <div class="email">alisonrocha@hotmail.com</div>
+            <div class="name-initial">AR</div>
+          </div>
+        </header>
+
+        <main class="container">
+          <!-- SEÇÃO QUE LISTA AS AÇÕES SOCIAIS -->
+          <div class="sections section-list-action active">
+            <div class="msg">
+              <div class="img">
+                <img src="./../public/images/img-maos.png" alt="" />
+              </div>
+              <div class="text-msg">
+                <p>
+                  Olá, Alison ;) <br />
+                  O envolveme é um site para unir ações sociais e voluntários,
+                  pois fazer o bem faz bem!
+                </p>
+              </div>
+            </div>
+
+            <div class="menu-category">
+              <h2>Nossas Ações</h2>
+              <ul>
+                <li class="active" id="all">Todos</li>
+                <li id="kids">Crianças</li>
+                <li id="animal">Animal</li>
+                <li id="adults">Adultos</li>
+                <li id="donation">Doação</li>
+              </ul>
+            </div>
+
+            <div class="cards"></div>
+          </div>
+
+          <!-- SEÇÃO FORMULÁRIO PARA REGISTRAR AÇÃO SOCIAL -->
+          <div class="sections section-registration-action">
+            <h2>Cadastrar Ação Social</h2>
+            <form action="#" id="form-save-action">
+              <label class="sr-only" for-id="name-action">Nome da Ação</label>
+              <input
+                type="text"
+                id="name-action"
+                placeholder="Nome da Ação Social ex: Mutirão de Limpeza na Praça"
+                required
+              />
+
+              <label class="sr-only" for-id="description-action"
+                >Descrição da Ação Social</label
+              >
+              <input
+                type="text"
+                id="description-action"
+                placeholder="Descrição breve sobre a ação"
+                required
+              />
+
+              <label class="sr-only" for-id="data-action"
+                >Data que vai ocorrer a ação social</label
+              >
+              <input type="date" id="data-action" placeholder="Data" required />
+
+              <label class="sr-only" for-id="hour-action"
+                >Data que vai ocorrer a ação social</label
+              >
+              <input type="time" id="hour-action" placeholder="time" required />
+
+              <label class="sr-only" for-id="local-action"
+                >Local da Ação social</label
+              >
+              <input
+                type="text"
+                id="local-action"
+                placeholder="Local da Ação Social ex: Igreja Nossa Senhora da Penha"
+                required
+              />
+
+              <label class="sr-only" for-id="address-action"
+                >Endereço da Ação Social</label
+              >
+              <input
+                type="text"
+                id="address-action"
+                placeholder="Endereço da Ação Social ex: Rua Vital Brasil nº36, São Daniel - Carapicuíba"
+                required
+              />
+
+              <label class="sr-only" for-id="tel-action"
+                >Whatsapp para contato
+              </label>
+              <input
+                type="tel"
+                id="tel-action"
+                placeholder="Whatsapp para contato"
+                required
+              />
+
+              <button id="btn-save-action">Salvar Ação Social</button>
+            </form>
+          </div>
+
+          <div class="sections section-profile">
+            <h2>Meu Perfil</h2>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="./../public/scripts/home.js"></script>
+  </body>
+</html>
