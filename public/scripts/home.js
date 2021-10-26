@@ -20,6 +20,8 @@ const Menu = {
     this.home.addEventListener('click', () => {
       Menu.clearMenu()
 
+      document.location.reload(true)
+
       document.querySelector('.section-list-action').classList.add('active')
     })
   },
@@ -181,12 +183,15 @@ const DBHome = {
         function (save, result) {
           let divCard = document.querySelector('.cards')
 
+          divCard.innerHTML = ''
+
           let list = result.rows
 
-          if (result.length < 0) {
-            divCard.innerHTML =
-              '<h1>Não temos nenhuma ação por enquanto, bora criar?</h1>'
+          if (list.length <= 0) {
+            document.querySelector('.msg-card').classList.add('active')
           } else {
+            document.querySelector('.msg-card').classList.remove('active')
+
             for (let i = 0; i < list.length; i++) {
               let { name, description, date, hour, id } = list
 
@@ -195,6 +200,8 @@ const DBHome = {
               date = list[i].date
               hour = list[i].hour
               id = list[i].id
+
+              date = date.split('-').reverse().join('-')
 
               divCard.innerHTML += DOMHome.listAction(
                 name,
@@ -240,10 +247,11 @@ const DBHome = {
 
           let list = result.rows
 
-          if (result.length < 0) {
-            divCard.innerHTML =
-              '<h1>Não temos nenhuma ação por enquanto, bora criar?</h1>'
+          if (list.length <= 0) {
+            document.querySelector('.msg-card').classList.add('active')
           } else {
+            document.querySelector('.msg-card').classList.remove('active')
+
             for (let i = 0; i < list.length; i++) {
               let { name, description, date, hour, id } = list
 
@@ -252,6 +260,8 @@ const DBHome = {
               date = list[i].date
               hour = list[i].hour
               id = list[i].id
+
+              date = date.split('-').reverse().join('-')
 
               divCard.innerHTML += DOMHome.listAction(
                 name,
@@ -317,8 +327,12 @@ const Categorys = {
 
     for (let i = 0; i < li.length; i++) {
       li[i].addEventListener('click', event => {
-        console.log(event.target.id)
-        DBHome.showlist(event.target.id)
+        if (event.target.id === 'all') {
+          DBHome.listAction()
+        } else {
+          DBHome.showlist(event.target.id)
+        }
+
         Categorys.clearBtnCategory()
         event.target.classList.add('active')
       })
@@ -333,12 +347,6 @@ const Categorys = {
         ? li[i].classList.remove('active')
         : null
     }
-  },
-
-  allAction() {
-    this.btn_all.addEventListener('click', () => {
-      DBHome.listAction()
-    })
   }
 }
 
@@ -454,7 +462,6 @@ const AppHome = {
     DBHome.profile()
     DOMHome.showData()
     Categorys.activeBtnCategorys()
-    Categorys.allAction()
   }
 }
 

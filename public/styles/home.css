@@ -122,8 +122,8 @@
   padding-right: 3rem;
 }
 
-.context-home .msg span{
-  color: var(--secundary-color)
+.context-home .msg span {
+  color: var(--secundary-color);
 }
 
 .context-home .menu-category {
@@ -157,6 +157,15 @@
 .context-home .menu-category ul li.active {
   background-color: var(--primary-color);
   color: var(--thirty-color);
+}
+
+.msg-card {
+  display: none;
+}
+
+.msg-card.active {
+  padding-top: 6rem;
+  display: block;
 }
 
 .cards {
