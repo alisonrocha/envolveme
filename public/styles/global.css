@@ -37,6 +37,7 @@
 
 input,
 button,
+select,
 .button {
   height: 5rem;
 
@@ -68,7 +69,8 @@ span {
   color: var(--primary-color);
 }
 
-input {
+input,
+select {
   padding: 0 1rem;
   border: solid 1px #cfcfcf;
 }

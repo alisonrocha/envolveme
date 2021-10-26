@@ -122,6 +122,10 @@
   padding-right: 3rem;
 }
 
+.context-home .msg span{
+  color: var(--secundary-color)
+}
+
 .context-home .menu-category {
   margin-top: 4rem;
 }
@@ -220,4 +224,52 @@
 
 .section-registration-action input {
   width: 100%;
+}
+
+/* SECTION PROFILE */
+.section-profile #context-profile {
+  padding: 3rem;
+  background: var(--four-color);
+  border-radius: 6px;
+  box-shadow: 0rem 0rem 0.5rem #00000061;
+}
+.section-profile h2 {
+  padding-bottom: 2rem;
+}
+
+.section-profile p {
+  font-size: 1.5rem;
+  padding-top: 1rem;
+}
+
+.section-profile span {
+  color: var(--secundary-color);
+
+  font-weight: bold;
+}
+
+.section-profile button {
+  width: 12rem;
+  margin-top: 2rem;
+}
+
+/* MODAL */
+.modal-detail-action {
+  visibility: hidden;
+}
+
+.modal-detail-action.active {
+  visibility: visible;
+}
+
+.modal-detail-action a {
+  margin-top: 2rem;
+  background: var(--primary-color);
+  color: var(--thirty-color);
+  border-radius: 6px;
+  display: inline-block;
+  width: 100%;
+  padding: 1.4rem;
+  text-align: center;
+  font-size: 1.4rem;
 }

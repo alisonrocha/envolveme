@@ -45,8 +45,8 @@
       <div class="section-two">
         <header>
           <div class="data-email">
-            <div class="email">alisonrocha@hotmail.com</div>
-            <div class="name-initial">AR</div>
+            <div id="show-email"></div>
+            <div class="name-initial" id="show-initial"></div>
           </div>
         </header>
 
@@ -59,7 +59,7 @@
               </div>
               <div class="text-msg">
                 <p>
-                  Olá, Alison ;) <br />
+                  Olá, <span id="name"></span> ;) <br />
                   O envolveme é um site para unir ações sociais e voluntários,
                   pois fazer o bem faz bem!
                 </p>
@@ -84,6 +84,14 @@
           <div class="sections section-registration-action">
             <h2>Cadastrar Ação Social</h2>
             <form action="#" id="form-save-action">
+              <select id="category" required>
+                <option value="" disabled selected>Categoria</option>
+                <option value="kids">Ação para crianças</option>
+                <option value="animal">Ação para animais</option>
+                <option value="adults">Ação para adultos</option>
+                <option value="donation">Ação para doação</option>
+              </select>
+
               <label class="sr-only" for-id="name-action">Nome da Ação</label>
               <input
                 type="text"
@@ -148,6 +156,8 @@
 
           <div class="sections section-profile">
             <h2>Meu Perfil</h2>
+
+            <div id="context-profile"></div>
           </div>
         </main>
       </div>

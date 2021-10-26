@@ -1,3 +1,5 @@
+const db_register = openDatabase('Envolveme', '2.0', 'Mybase', 4048)
+
 const Form = {
   field_name: document.getElementById('name'),
   field_lastname: document.getElementById('last-name'),
@@ -42,10 +44,8 @@ const Form = {
 }
 
 const DBRegister = {
-  db: openDatabase('Envolveme', '2.0', 'Mybase', 4048),
-
   connect() {
-    DBRegister.db.transaction(function (create) {
+    db_register.transaction(function (create) {
       create.executeSql(
         'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, lastname TEXT, email TEXT, password TEXT)'
       )
@@ -55,7 +55,7 @@ const DBRegister = {
   verifyUser() {
     const field_email = document.getElementById('email').value
 
-    DBRegister.db.transaction(function (query) {
+    db_register.transaction(function (query) {
       query.executeSql(
         'SELECT email FROM users WHERE email = ?',
         [field_email],
@@ -69,7 +69,7 @@ const DBRegister = {
   },
 
   saveUser(e) {
-    DBRegister.db.transaction(async function (save) {
+    db_register.transaction(async function (save) {
       await save.executeSql(
         'INSERT INTO users (name, lastname, email, password) VALUES(?,?,?,?)',
         [

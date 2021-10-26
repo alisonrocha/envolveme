@@ -1,3 +1,5 @@
+const db = openDatabase('Envolveme', '2.0', 'Mybase', 4048)
+
 const Menu = {
   home: document.getElementById('home'),
   registrationAction: document.getElementById('registration-action'),
@@ -42,12 +44,14 @@ const Menu = {
 
   logoutHome() {
     this.logout.addEventListener('click', () => {
+      localStorage.clear()
       window.location.replace('/src/index.html')
     })
   }
 }
 
-const SaveAction = {
+const Action = {
+  field_category: document.getElementById('category'),
   field_nameAction: document.getElementById('name-action'),
   field_descriptionAction: document.getElementById('description-action'),
   field_dataAction: document.getElementById('data-action'),
@@ -58,6 +62,8 @@ const SaveAction = {
 
   getValues() {
     return {
+      field_category: document.getElementById('category').value,
+
       field_nameAction: document.getElementById('name-action').value,
       field_descriptionAction:
         document.getElementById('description-action').value,
@@ -74,6 +80,7 @@ const SaveAction = {
 
     document.getElementById('btn-save-action').addEventListener('click', () => {
       const {
+        field_category,
         field_nameAction,
         field_descriptionAction,
         field_dataAction,
@@ -81,11 +88,14 @@ const SaveAction = {
         field_localAction,
         field_addressAction,
         field_telAction
-      } = SaveAction.getValues()
+      } = Action.getValues()
+
+      console.log(field_category)
 
       form.submit()
 
       if (
+        field_category !== '' &&
         field_nameAction !== '' &&
         field_descriptionAction !== '' &&
         field_dataAction !== '' &&
@@ -94,7 +104,8 @@ const SaveAction = {
         field_addressAction !== '' &&
         field_telAction !== ''
       ) {
-        DBAction.saveAction(
+        DBHome.Action(
+          field_category,
           field_nameAction,
           field_descriptionAction,
           field_dataAction,
@@ -108,28 +119,32 @@ const SaveAction = {
   },
 
   clearFields() {
-    SaveAction.field_nameAction.value = ''
-    SaveAction.field_descriptionAction.value = ''
-    SaveAction.field_dataAction.value = ''
-    SaveAction.field_hourAction.value = ''
-    SaveAction.field_localAction.value = ''
-    SaveAction.field_addressAction.value = ''
-    SaveAction.field_telAction.value = ''
+    Action.field_category.value = ''
+    Action.field_nameAction.value = ''
+    Action.field_descriptionAction.value = ''
+    Action.field_dataAction.value = ''
+    Action.field_hourAction.value = ''
+    Action.field_localAction.value = ''
+    Action.field_addressAction.value = ''
+    Action.field_telAction.value = ''
+  },
+
+  detailsActions(id) {
+    DBHome.detailAction(id)
   }
 }
 
-const DBAction = {
-  db: openDatabase('Envolveme', '2.0', 'Mybase', 4048),
-
+const DBHome = {
   connect() {
-    DBAction.db.transaction(function (create) {
+    db.transaction(function (create) {
       create.executeSql(
-        'CREATE TABLE IF NOT EXISTS actions (id INTEGER PRIMARY KEY, name TEXT, description TEXT, date DATE, hour INTEGER, local TEXT, address TEXT, phone INTEGER)'
+        'CREATE TABLE IF NOT EXISTS actions (id INTEGER PRIMARY KEY, category TEXT, name TEXT, description TEXT, date DATE, hour INTEGER, local TEXT, address TEXT, phone INTEGER)'
       )
     })
   },
 
-  saveAction(
+  Action(
+    field_category,
     field_nameAction,
     field_descriptionAction,
     field_dataAction,
@@ -138,11 +153,12 @@ const DBAction = {
     field_addressAction,
     field_telAction
   ) {
-    DBAction.connect()
-    DBAction.db.transaction(async function (save) {
+    DBHome.connect()
+    db.transaction(async function (save) {
       await save.executeSql(
-        'INSERT INTO actions (name, description, date, hour, local, address, phone) VALUES(?,?,?,?,?,?,?)',
+        'INSERT INTO actions (category, name, description, date, hour, local, address, phone) VALUES(?,?,?,?,?,?,?,?)',
         [
+          field_category,
           field_nameAction,
           field_descriptionAction,
           field_dataAction,
@@ -152,13 +168,13 @@ const DBAction = {
           field_telAction
         ]
       )
-      SaveAction.clearFields()
+      Action.clearFields()
       DOMHome.modalSuccess()
     })
   },
 
   listAction() {
-    DBAction.db.transaction(async function (save) {
+    db.transaction(async function (save) {
       await save.executeSql(
         'SELECT * FROM actions',
         [],
@@ -192,15 +208,108 @@ const DBAction = {
         }
       )
     })
+  },
+
+  profile() {
+    let id = localStorage.getItem('id')
+    db.transaction(async function (query) {
+      await query.executeSql(
+        'SELECT * FROM users WHERE id = ? ',
+        [id],
+        function (save, result) {
+          let divProfile = document.getElementById('context-profile')
+          let name = result.rows[0].name
+          let lastname = result.rows[0].lastname
+          let email = result.rows[0].email
+
+          divProfile.innerHTML = DOMHome.showProfile(name, lastname, email, id)
+        }
+      )
+    })
+  },
+
+  showlist(category) {
+    db.transaction(function (query) {
+      query.executeSql(
+        'SELECT * FROM actions WHERE category = ? ',
+        [category],
+        function (query, result) {
+          let divCard = document.querySelector('.cards')
+
+          divCard.innerHTML = ''
+
+          let list = result.rows
+
+          if (result.length < 0) {
+            divCard.innerHTML =
+              '<h1>Não temos nenhuma ação por enquanto, bora criar?</h1>'
+          } else {
+            for (let i = 0; i < list.length; i++) {
+              let { name, description, date, hour, id } = list
+
+              name = list[i].name
+              description = list[i].description
+              date = list[i].date
+              hour = list[i].hour
+              id = list[i].id
+
+              divCard.innerHTML += DOMHome.listAction(
+                name,
+                description,
+                date,
+                hour,
+                id
+              )
+            }
+          }
+        }
+      )
+    })
+  },
+
+  detailAction(id) {
+    console.log(id)
+    db.transaction(function (query) {
+      query.executeSql(
+        'SELECT * FROM actions WHERE id = ? ',
+        [id],
+        function (query, result) {
+          let div = document.body
+
+          let category, name, description, date, hour, local, address, phone
+
+          category = result.rows[0].category
+          name = result.rows[0].name
+          description = result.rows[0].description
+          date = result.rows[0].date
+          hour = result.rows[0].hour
+          local = result.rows[0].local
+          address = result.rows[0].address
+          phone = result.rows[0].phone
+
+          date = date.split('-').reverse().join('-')
+
+          div.insertAdjacentHTML(
+            'afterend',
+            DOMHome.modalDetailAction(
+              category,
+              name,
+              description,
+              date,
+              hour,
+              local,
+              address,
+              phone
+            )
+          )
+        }
+      )
+    })
   }
 }
 
 const Categorys = {
   btn_all: document.getElementById('all'),
-  btn_kids: document.getElementById('all'),
-  btn_animal: document.getElementById('all'),
-  btn_adults: document.getElementById('all'),
-  btn_donation: document.getElementById('all'),
   all_li: document.querySelectorAll('.menu-category li'),
 
   activeBtnCategorys() {
@@ -208,7 +317,8 @@ const Categorys = {
 
     for (let i = 0; i < li.length; i++) {
       li[i].addEventListener('click', event => {
-        console.log(event.target)
+        console.log(event.target.id)
+        DBHome.showlist(event.target.id)
         Categorys.clearBtnCategory()
         event.target.classList.add('active')
       })
@@ -223,10 +333,34 @@ const Categorys = {
         ? li[i].classList.remove('active')
         : null
     }
+  },
+
+  allAction() {
+    this.btn_all.addEventListener('click', () => {
+      DBHome.listAction()
+    })
   }
 }
 
 const DOMHome = {
+  name: document.getElementById('name'),
+  email: document.getElementById('show-email'),
+  initial_name: document.getElementById('show-initial'),
+
+  close() {
+    document.querySelector('.modal-detail-action').classList.remove('active')
+  },
+
+  showData() {
+    DOMHome.name.innerHTML = localStorage.getItem('name')
+
+    DOMHome.email.innerHTML = localStorage.getItem('email')
+
+    DOMHome.initial_name.innerHTML =
+      localStorage.getItem('name').substr(0, 1) +
+      localStorage.getItem('lastname').substr(0, 1)
+  },
+
   modalSuccess() {
     let div = document.createElement('div')
     div.innerHTML = `
@@ -246,6 +380,39 @@ const DOMHome = {
     }, 5000)
   },
 
+  modalDetailAction(
+    category,
+    name,
+    description,
+    date,
+    hour,
+    local,
+    address,
+    phone
+  ) {
+    //let div = document.createElement('div')
+
+    html = `
+      <div class="modal modal-detail-action active">
+      <div class="context-modal">  
+      <div class="close" onclick="DOMHome.close()">X</div>       
+      <div class="container">
+      <p><span>Categoria da Ação: </span> ${category}</p>
+      <p><span>Ação Social: </span> ${name}</p>
+      <p><span>Detalhes da Ação Social: </span> ${description}</p>
+      <p><span>Dia que vai ocorrer: </span> ${date}</p>
+      <p><span>Horário: </span> ${hour}</p>
+      <p><span>Local: </span> ${local}</p>
+      <p><span>Endereço: </span> ${address}</p>
+      <p><span>Whatsapp para contato: </span> ${phone}</p>
+      <a href="https://api.whatsapp.com/send?phone=${phone}&text=Oi%20Gostaria%20de%20participar%20da%20ação%20social%20${name}">Entrar em contato</a>     
+      </div>
+      </div>
+      </div>
+    `
+    return html
+  },
+
   listAction(name, description, date, hour, index) {
     html = `      
         <div class="card-context">
@@ -256,10 +423,22 @@ const DOMHome = {
         <img src="./../public/images/calendar.svg" alt="" />
         <span>${date} às ${hour}</span>
         </div>
-        <button onclick="Transaction.remove(${index})">Mais detalhes</button>
+        <button onclick="Action.detailsActions(${index})">Mais detalhes</button>
         </div>
         </div>      
       `
+    return html
+  },
+
+  showProfile(name, lastname, email, id) {
+    html = `
+      <p><span>Nome: </span>${name + ' ' + lastname}</p>
+
+      <p><span>E-mail: </span> ${email}</p>
+
+      <button id="btn-profile">Alterar</button>
+    `
+
     return html
   }
 }
@@ -270,9 +449,12 @@ const AppHome = {
     Menu.activeHome()
     Menu.activeProfile()
     Menu.logoutHome()
-    SaveAction.loading()
-    DBAction.listAction()
+    Action.loading()
+    DBHome.listAction()
+    DBHome.profile()
+    DOMHome.showData()
     Categorys.activeBtnCategorys()
+    Categorys.allAction()
   }
 }
 

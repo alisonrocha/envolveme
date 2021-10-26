@@ -1,3 +1,5 @@
+const db = openDatabase('Envolveme', '2.0', 'Mybase', 4048)
+
 const Login = {
   field_email: document.getElementById('user-email'),
   field_password: document.getElementById('user-password'),
@@ -32,17 +34,21 @@ const Login = {
 }
 
 const Database = {
-  db: openDatabase('Envolveme', '2.0', 'Mybase', 4048),
-
   queryDB(email, password) {
-    this.db.transaction(function (query) {
+    db.transaction(function (query) {
       query.executeSql(
-        'SELECT email, password FROM users WHERE email = ? AND password = ? ',
+        'SELECT * FROM users WHERE email = ? AND password = ? ',
         [email, password],
         function (query, result) {
-          result.rows.length > 0
-            ? window.location.replace('/src/home.html')
-            : alert('usuario não existe, favor tentar novamente!')
+          if (result.rows.length > 0) {
+            localStorage.setItem('id', result.rows[0].id)
+            localStorage.setItem('name', result.rows[0].name)
+            localStorage.setItem('email', result.rows[0].email)
+            localStorage.setItem('lastname', result.rows[0].lastname)
+            window.location.replace('/src/home.html')
+          } else {
+            alert('usuario não existe, favor tentar novamente!')
+          }
         }
       )
     })

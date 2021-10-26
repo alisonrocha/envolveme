@@ -1,3 +1,5 @@
+const db_forgot = openDatabase('Envolveme', '2.0', 'Mybase', 4048)
+
 const FormForgot = {
   field_forgot: document.getElementById('email-forgot'),
 
@@ -55,7 +57,48 @@ const FormRecover = {
   }
 }
 
+const DBForgot = {
+  verifyUser(email) {
+    db_forgot.transaction(function (query) {
+      query.executeSql(
+        'SELECT * FROM users WHERE email = ?',
+        [email],
+        function (query, result) {
+          if (result.rows.length > 0) {
+            localStorage.setItem('id', result.rows[0].id)
 
+            document
+              .querySelector('.modal-recover-password')
+              .classList.add('active')
+
+            document
+              .querySelector('.modal-forgot-password')
+              .classList.remove('active')
+          } else {
+            alert('E-mail não consta no nosso banco de dados :(')
+          }
+        }
+      )
+    })
+  },
+
+  updateUser(pass) {
+    db_forgot.transaction(async function (update) {
+      await update.executeSql('UPDATE users SET password = ? WHERE id= ?', [
+        pass,
+        localStorage.getItem('id')
+      ])
+
+      FormRecover.clearFields()
+
+      document
+        .querySelector('.modal-recover-password')
+        .classList.remove('active')
+
+      alert('Alterado com Sucesso!')
+    })
+  }
+}
 
 const ModalRecover = {
   close() {
